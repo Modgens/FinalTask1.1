@@ -1,0 +1,17 @@
+<!-- history.component.html -->
+
+<div *ngFor="let group of groups" class="card mt-4">
+    <div class="card-header">
+        Кімната №{{ group.number }}
+    </div>
+    <div class="card-body">
+        <p class="card-title"><b>Відповідальний за номер: </b>{{ group.mainVisitant.fullName }}</p>
+        <p class="card-text">
+            Співмешканці: {{ getVisitantsString(group.visitants) }} <br>
+            Проживали з: {{ group.dateIn | date:'dd.MM.yyyy' }} <br>
+            По: {{ group.dateOut | date:'dd.MM.yyyy' }} <br>
+            Ціна за проживання: {{ group.totalAmount }}$
+        </p>
+        <a class="btn btn-primary" (click)="downloadPdf(group.id)">Отримати квитанцію</a>
+    </div>
+</div>

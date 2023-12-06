@@ -1,0 +1,46 @@
+<div class="card mt-4 w-50">
+    <h5 class="card-header">Кімната номер {{ room.number }}</h5>
+    <div class="card-body">
+        <p class="card-text">
+            <b>Клас: </b> {{ room.type }} <br>
+            <b>Поверх: </b> {{ room.floor }} <br>
+            <b>Спальних місць: </b> {{ room.maxPeople }} <br>
+            <b>Ціна: </b> {{ room.price }} $ <br>
+            
+            <div *ngIf="room.isAvailable; else notAvailable">
+
+                Дата заселення
+                <input type="date" [(ngModel)]="selectedDateIn" [value]="room.group?.dateIn | date: 'yyyy-MM-dd'" class="form-control" required>
+                Дата виселення
+                <input type="date" [(ngModel)]="selectedDateOut" [value]="room.group?.dateOut | date: 'yyyy-MM-dd'" class="form-control" required>
+
+                Відповідальний за номер:<br>
+                <input type="text" [(ngModel)]="selectedMainVisitant" class="form-control" required>
+                <br>
+
+                <b>{{ room.maxPeople === 1 ? "" : "Гості"}}</b>
+                
+                <div *ngFor="let i of getRange(room.maxPeople-1); let index = index">
+                    <input type="text" [(ngModel)]="selectedVisitantIds[index]" class="form-control mb-2" required>
+                </div>
+                <a class="btn btn-primary w-100 mt-3" (click)="createGroup()">Заселити</a>
+            </div>
+            <ng-template #notAvailable>
+
+                Дата заселення
+                <p>{{room.group?.dateIn | date: 'dd.MM.yyyy'}}</p>
+                Дата виселення
+                <input type="date" [(ngModel)]="selectedDateOut" [value]="room.group?.dateOut | date: 'yyyy-MM-dd'" class="form-control" required>
+
+                <b>Відповідальний за номер: </b> {{ room.group?.mainVisitant?.fullName }} <br>
+                <b>{{ room.group?.visitants?.length === 0 ? "Гостей нема" : "Гості:" }}</b>
+                <div *ngFor="let visitant of room.group?.visitants">
+                    {{ visitant.fullName }}
+                </div>
+                <a class="btn btn-primary w-100 mt-1" (click)="updateGroup()">Оновити</a>
+                <a class="btn btn-success w-100 mt-1" (click)="downloadPdf(room.group?.id)">Отримати квитанцію</a>
+                <a class="btn btn-danger w-100 mt-1" (click)="evictGroup()">Виселити</a>
+            </ng-template>
+    </div>
+</div>
+

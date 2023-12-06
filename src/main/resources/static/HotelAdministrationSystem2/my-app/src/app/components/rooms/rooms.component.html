@@ -1,0 +1,31 @@
+
+<div class="btn-group mt-4" role="group" aria-label="Basic outlined example">
+  <button type="button" [class.active]="filterType === 'delayed'" class="btn btn-outline-primary" (click)="filter('delayed')">Затримуються</button>
+  <button type="button" [class.active]="filterType === 'today'" class="btn btn-outline-primary" (click)="filter('today')">Сьогодні відїзд</button>
+  <button type="button" [class.active]="filterType === 'lessThanThreeDays'" class="btn btn-outline-primary" (click)="filter('lessThanThreeDays')">Менше 3 днів</button>
+  <button type="button" [class.active]="filterType === 'all'" class="btn btn-outline-primary" (click)="filter('all')">Всі</button>
+</div>
+
+<div class="row">
+    <div class="col-sm-3" *ngFor="let room of rooms">
+      <div class="card mt-4">
+        <h5 class="card-header">Кімната № {{ room.number }}</h5>
+        <div class="card-body">
+          <p class="card-text">
+            <b>Клас: </b> {{ room.type }} <br>
+            <b>Поверх: </b> {{ room.floor }} <br>
+            <b>Спальних місць: </b> {{ room.maxPeople }} <br>
+            <b>Ціна: </b> {{ room.price }} $ <br>
+          </p>
+          <p class="card-text text-success" *ngIf="room.isAvailable; else notAvailable">Вільний</p>
+          <ng-template #notAvailable>
+            <p class="card-text text-danger">Зайнято</p>
+            <a href="/rooms/{{room.id}}" class="btn btn-primary">Гості</a>
+          </ng-template>
+          <a href="/rooms/{{room.id}}" class="btn btn-primary" *ngIf="room.isAvailable">Заселити</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<router-outlet></router-outlet>

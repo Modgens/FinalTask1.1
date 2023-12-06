@@ -1,0 +1,17 @@
+<a href="/visitants" class="btn btn-primary mt-1 mb-2">Назад</a>
+<div class="card w-50">
+    <div class="card-header">
+    Карточка гостя
+    </div>
+    <div class="card-body">
+    <h5 class="card-title">{{visitant.fullName}}
+
+    </h5>
+    <p class="card-text">
+        Дата народження: {{visitant.birthDate | date: 'dd.MM.yyyy'}}<br>
+        Ідентифікатор паспорта: {{visitant.passportNumber}}<br>
+        Проживав в номерах: {{visitant.livedIn.length === 0 ? "Не проживав" : visitant.livedIn}}<br>
+        Проживає в номері: {{visitant.liveIn === 0 ? "Не живе зараз в готелі" : visitant.liveIn}}
+    </p>
+    </div>
+</div>

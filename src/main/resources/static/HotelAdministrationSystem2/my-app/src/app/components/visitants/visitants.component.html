@@ -1,0 +1,43 @@
+<div class="input-group mb-3 mt-3">
+  <input class="form-control w-75" type="text" [(ngModel)]="searchTerm" placeholder="Пошук...">
+  <a class="btn btn-outline-success" (click)="search()">Пошук</a>
+</div>
+
+<table class="table table-bordered mt-4">
+    <thead class="table-dark">
+      <tr>
+        <th class="col-3">Ім'я</th>
+        <th class="col-3">Прізвище</th>
+        <th class="col-3">По Батькові</th>
+        <th class="col-2">Birthday</th>
+        <th class="col-1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let visitant of visitants">
+        <td>{{ visitant.firstName }}</td>
+        <td>{{ visitant.lastName }}</td>
+        <td>{{ visitant.middleName }}</td>
+        <td>{{ visitant.birthDate | date:'dd.MM.yyyy' }}</td>
+        <td><a href="/visitants/{{visitant.id}}" class="btn btn-success">Більше</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-grid gap-2 mb-2">
+    <a class="btn btn-outline-success" href="registration">Зареєструвати гостя</a>
+  </div>
+
+  <nav aria-label="..." class="d-flex justify-content-center">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 0">
+        <button class="page-link" (click)="changePage(-1)">Previous</button>
+      </li>
+      <li class="page-item" *ngFor="let page of getPages()">
+        <button class="page-link" (click)="changePage(page)" [class.active]="currentPage === page">{{ page + 1 }}</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages-1">
+        <button class="page-link" (click)="changePage(-2)">Next</button>
+      </li>
+    </ul>
+  </nav>
+  
