@@ -9,10 +9,14 @@ import { RoomComponent } from './components/room/room.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HistoryComponent } from './components/history/history.component';
 import { VisitantComponent } from './components/visitant/visitant.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AuthorizationComponent} from "./components/authorization/authorization.component";
+import {AuthInterceptor} from "./service/auth.interceptor";
+import {ForbiddenComponent} from "./components/forbidden/forbidden.component";
+import {ErrorInterceptor} from "./service/error.interceptor";
 
 
 @NgModule({
@@ -24,7 +28,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RoomComponent,
     RegistrationComponent,
     HistoryComponent,
-    VisitantComponent    
+    VisitantComponent,
+    AuthorizationComponent,
+    ForbiddenComponent
   ],
   imports: [
     FormsModule,
@@ -36,7 +42,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

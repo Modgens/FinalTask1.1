@@ -20,9 +20,7 @@ public class RoomController {
     private final RoomService roomService;
 
     @GetMapping
-    public ResponseEntity<List<RoomsResponse>> getAllRooms(
-            @RequestParam(required = false) String filterBy
-    ) {
+    public ResponseEntity<List<RoomsResponse>> getAllRooms(@RequestParam(required = false) String filterBy) {
         List<RoomsResponse> rooms = roomService.getAllRooms(filterBy);
         return ResponseEntity.ok(rooms);
     }

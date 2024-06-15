@@ -21,7 +21,6 @@ export class RoomsComponent implements OnInit{
     this.loadVisitants();
   }
 
-  
   loadVisitants() {
     this.roomService.getAllRooms(this.filterType).subscribe(data => {
       this.rooms = data;

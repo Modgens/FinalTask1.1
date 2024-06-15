@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 
 @SpringBootTest
-public class CalculatorTest {
+public class    CalculatorTest {
 
     @Autowired
     private Calculator calculator;

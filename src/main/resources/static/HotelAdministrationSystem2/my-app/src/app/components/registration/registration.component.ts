@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { VisitantService } from '../../service/visitant.service';
 import { NotificationService } from '../../service/notofication.service';
 import { Visitants } from '../../model/visitants.model';
@@ -21,7 +20,7 @@ export class RegistrationComponent {
   selectedLastName: string = '';
   selectedBirthDate: Date = new Date();
   selectedPasswordId: string = '';
-  
+
   createVisitant():void {
     console.log(this.selectedFirstName)
     const newVisitant: Visitants = {
